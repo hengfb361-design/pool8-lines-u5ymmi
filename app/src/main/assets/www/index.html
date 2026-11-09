@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="km">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<meta name="theme-color" content="#0d1117" />
+<title>8 Ball — ខ្សែវែង</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden;
+    background: #0d1117; color: #e6edf5;
+    font-family: system-ui, -apple-system, "Khmer OS", "Noto Sans Khmer", sans-serif;
+    -webkit-user-select: none; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #app { display: flex; flex-direction: column; height: 100%; }
+
+  header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; padding-top: calc(10px + env(safe-area-inset-top));
+    background: linear-gradient(#151b24, #10151c);
+    border-bottom: 1px solid #1e2833;
+  }
+  header h1 { font-size: 15px; margin: 0; font-weight: 700; letter-spacing: .2px; }
+  header .tag {
+    font-size: 11px; color: #8fd8c6; border: 1px solid #23564c;
+    background: #10231f; padding: 2px 7px; border-radius: 999px;
+  }
+  header .spacer { flex: 1; }
+  button {
+    font: inherit; font-size: 13px; color: #e6edf5; cursor: pointer;
+    background: #1b232e; border: 1px solid #2a3644; border-radius: 10px;
+    padding: 7px 11px;
+  }
+  button:active { transform: translateY(1px); }
+  button.off { opacity: .45; }
+
+  #tableWrap { position: relative; flex: 1; min-height: 0; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+  #banner {
+    position: absolute; left: 50%; top: 14px; transform: translate(-50%, -12px);
+    max-width: 86%;
+    padding: 10px 16px; border-radius: 14px;
+    background: rgba(10, 15, 20, .92); border: 1px solid #2a3644;
+    box-shadow: 0 12px 30px rgba(0,0,0,.5);
+    font-size: 14px; text-align: center; line-height: 1.5;
+    opacity: 0; pointer-events: none; transition: .18s ease;
+  }
+  #banner.show { opacity: 1; transform: translate(-50%, 0); }
+
+  footer {
+    padding: 8px 14px; padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(#10151c, #151b24);
+    border-top: 1px solid #1e2833;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #9fb0c3; }
+  #power {
+    flex: 1; height: 12px; border-radius: 999px; overflow: hidden;
+    background: #1a222c; border: 1px solid #26323f;
+  }
+  #power.live { border-color: #3c5a72; }
+  #powerFill {
+    height: 100%; width: 55%;
+    background: linear-gradient(90deg, #2bb673, #e8c53a 62%, #e0533c);
+    transition: width .08s linear;
+  }
+  #bars { display: flex; flex-wrap: wrap; gap: 3px; flex: 1; }
+  #bars i {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #d8b23a; box-shadow: 0 0 0 1px #2a3644 inset;
+  }
+  #bars em { font-style: normal; color: #6d7d8f; }
+  .hint { font-size: 11px; color: #6d7d8f; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>8 Ball</h1>
+    <span class="tag">ខ្សែវែង</span>
+    <span class="spacer"></span>
+    <button id="linesBtn" type="button">ខ្សែ</button>
+    <button id="resetBtn" type="button">រៀបថ្មី</button>
+  </header>
+
+  <div id="tableWrap">
+    <canvas id="table" aria-label="តុប៊ីយ៉ុង"></canvas>
+    <div id="banner"><span id="bannerText"></span></div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <span style="min-width:34px">កម្លាំង</span>
+      <div id="power" role="progressbar" aria-label="កម្លាំង"><div id="powerFill"></div></div>
+    </div>
+    <div class="row">
+      <span style="min-width:34px">នៅសល់</span>
+      <div id="bars"></div>
+    </div>
+    <div class="hint">អូសលើតុដើម្បីតម្រង់ និងរើសកម្លាំង — ដៃទៅឆ្ងាយ = វាយខ្លាំង</div>
+  </footer>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
